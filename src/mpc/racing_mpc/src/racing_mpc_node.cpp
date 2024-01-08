@@ -383,7 +383,7 @@ void RacingMPCNode::on_step_timer()
   auto bank_angle = track_->bank_interpolation_function()(abscissa)[0];
   const auto current_bank_angle = static_cast<double>(
     track_->bank_interpolation_function()(DM(current_frenet_pose.position.s))[0]);
-
+  std::cout << bank_angle<< std::endl;
   // cap the velocity by the speed limit
   std::shared_lock<std::shared_mutex> speed_limit_lock(speed_limit_mutex_);
   std::shared_lock<std::shared_mutex> speed_scale_lock(speed_scale_mutex_);

@@ -343,11 +343,12 @@ void SingleTrackPlanarModel::compile_dynamics()
     const auto k_banked = k * cos(bank);
     px_dot /= (1 - py * k_banked);
     phi_dot -= k_banked * px_dot;
-  } else {
-    phi_dot *= cos(bank);
-    px_dot = vx * cos(phi) - vy * sin(phi) * cos(bank);
-    py_dot = vx * sin(phi) + vy * cos(phi) * cos(bank);
   }
+  // } else {
+  //   phi_dot *= cos(bank);
+  //   px_dot = vx * cos(phi) - vy * sin(phi) * cos(bank);
+  //   py_dot = vx * sin(phi) + vy * cos(phi) * cos(bank);
+  // }
 
   const auto x_dot = vertcat(px_dot, py_dot, phi_dot, vx_dot, vy_dot, omega_dot);
   const auto Fx_ij = vertcat(Fx_fl, Fx_rl);
