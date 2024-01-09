@@ -72,7 +72,7 @@ def generate_launch_description():
                     use_sim_time,
                     {
                         "racing_simulator.race_track_file_path": sim_track_file,
-                        "modeling.use_frenet": False,
+                        "modeling.use_frenet": True,
                         # "racing_simulator.x0": [-100.0, -5.0, 3.14, 15.0, 0.0, 0.0]
                         # "racing_simulator.x0": [50.0, 5.0, 3.14, 15.0, 0.0, 0.0]
                         # "racing_simulator.x0": [-10.0, 2.0, 3.14, 15.0, 0.0, 0.0]
