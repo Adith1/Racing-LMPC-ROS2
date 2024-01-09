@@ -88,6 +88,8 @@ RacingMPCNode::RacingMPCNode(const rclcpp::NodeOptions & options)
   const auto u_sym = casadi::MX::sym("u", model_->nu());
   const auto k = track_->curvature_interpolation_function()(x_sym(XIndex::PX))[0];
   const auto bank_angle = track_->bank_interpolation_function()(x_sym(XIndex::PX))[0];
+  std::cout << bank_angle<< std::endl;
+
   const auto xip1 = model_->discrete_dynamics()(
     casadi::MXDict{{"x", x_sym}, {"u", u_sym}, {"k", k}, {"dt", config_->dt}, {"bank", bank_angle}}
   ).at("xip1");
@@ -383,7 +385,6 @@ void RacingMPCNode::on_step_timer()
   auto bank_angle = track_->bank_interpolation_function()(abscissa)[0];
   const auto current_bank_angle = static_cast<double>(
     track_->bank_interpolation_function()(DM(current_frenet_pose.position.s))[0]);
-  std::cout << bank_angle<< std::endl;
   // cap the velocity by the speed limit
   std::shared_lock<std::shared_mutex> speed_limit_lock(speed_limit_mutex_);
   std::shared_lock<std::shared_mutex> speed_scale_lock(speed_scale_mutex_);
