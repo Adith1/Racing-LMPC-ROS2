@@ -48,11 +48,13 @@ RacingSimulator::RacingSimulator(
   const auto u_sym = casadi::MX::sym("u", model_->nu());
   casadi::MX k = 0.0;
   casadi::MX bank = 0.0;
-  if (model_->get_base_config().modeling_config->use_frenet) {
-    k = track_->curvature_interpolation_function()(x_sym(XIndex::PX))[0];
-    bank = track_->bank_interpolation_function()(x_sym(XIndex::PX))[0];
+  // if (model_->get_base_config().modeling_config->use_frenet) {
+  //   k = track_->curvature_interpolation_function()(x_sym(XIndex::PX))[0];
+  //   bank = track_->bank_interpolation_function()(x_sym(XIndex::PX))[0];
 
-  }
+  // }
+  k = track_->curvature_interpolation_function()(x_sym(XIndex::PX))[0];
+  bank = track_->bank_interpolation_function()(x_sym(XIndex::PX))[0];
 
   auto xip1 = model_->discrete_dynamics()(
     casadi::MXDict{{"x", x_sym}, {"u", u_sym}, {"k", k}, {"dt", dt_},{"bank", bank}}
